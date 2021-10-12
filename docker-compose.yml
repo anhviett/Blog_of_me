@@ -1,0 +1,42 @@
+# Use root/example as user/password credentials
+version: '3.1'
+
+services:
+  db:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: my-secret-pw
+      MYSQL_DATABASE: db-name
+      MYSQL_USER: dungnm
+      MYSQL_PASSWORD: dungnm
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+      - ./docker/mysql/my-custom.cnf:/etc/mysql/conf.d/my-custom.cnf
+
+  app:
+    build:
+      context: ./docker/php-fpm
+      args:
+        UID: ${UID}
+        GID: ${GID}
+    volumes:
+      - ./:/app
+    working_dir: /app
+    user: ${UID}:${GID}
+
+  httpd:
+    build: ./docker/httpd
+    restart: always
+    ports:
+      - 80:80
+    volumes:
+      - ./:/app
+      - ./docker/httpd/httpd.conf:/usr/local/apache2/conf/httpd.conf
+      - ./docker/httpd/vhost-httpd.conf:/usr/local/apache2/conf/vhost-httpd.conf
+    depends_on:
+      - app
+      - db

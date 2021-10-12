@@ -1,0 +1,48 @@
+.imagesForm:hover ~ .formLabel{
+    opacity: 1;
+}
+.formLabel:hover{
+    cursor: pointer;
+    opacity: 1;
+}
+.formLabel{
+    transition: all .3s ease;
+    opacity: 0;
+    color: cornflowerblue;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.formLabel i.fas.fa-pen{
+    position: relative;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    background: white;
+    box-shadow: 0px 0px 13px 0px rgba(0, 0, 0, .1);
+}
+.formLabel i.fas.fa-pen::before{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+i.fal, p.delete-img{
+    cursor: pointer;
+}
+.img-list img {
+    width: 100px;
+    height: 100px;
+}
+i.right.fas.fa-angle-right{
+    margin-right: 20px;
+}
+.error{
+    font-weight: 500;
+    color: hsla(359,100%,49%,1.00);
+}
+
+
+
+
